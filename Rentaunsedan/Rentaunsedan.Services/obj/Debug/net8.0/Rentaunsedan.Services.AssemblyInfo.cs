@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Rentaunsedan.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f90f48372c94b35cc9a592cc8c916b4245adea7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Rentaunsedan.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Rentaunsedan.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ygYVWzXoggY=",
+  "dgSpecHash": "d8d2Cl6TLgY=",
   "success": true,
-  "projectFilePath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj",
+  "projectFilePath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MarioAntonioDíazMénd\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\MarioAntonioDíazMénd\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

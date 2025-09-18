@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Web\\Rentaunsedan.Web.csproj": {}
+    "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Web\\Rentaunsedan.Web.csproj": {}
   },
   "projects": {
-    "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj": {
+    "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj",
+        "projectUniqueName": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj",
         "projectName": "Rentaunsedan.Data",
-        "projectPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj",
+        "projectPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj",
         "packagesPath": "C:\\Users\\MarioAntonioDíazMénd\\.nuget\\packages\\",
-        "outputPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Data\\obj\\",
+        "outputPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -25,15 +25,15 @@
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj": {
-                "projectPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj"
+              "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj": {
+                "projectPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj"
               }
             }
           }
@@ -79,18 +79,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj": {
+    "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj",
+        "projectUniqueName": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj",
         "projectName": "Rentaunsedan.Entities",
-        "projectPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj",
+        "projectPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Entities\\Rentaunsedan.Entities.csproj",
         "packagesPath": "C:\\Users\\MarioAntonioDíazMénd\\.nuget\\packages\\",
-        "outputPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Entities\\obj\\",
+        "outputPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -104,7 +104,7 @@
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -144,18 +144,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj": {
+    "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj",
+        "projectUniqueName": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj",
         "projectName": "Rentaunsedan.Services",
-        "projectPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj",
+        "projectPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj",
         "packagesPath": "C:\\Users\\MarioAntonioDíazMénd\\.nuget\\packages\\",
-        "outputPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Services\\obj\\",
+        "outputPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -169,15 +169,15 @@
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj": {
-                "projectPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj"
+              "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj": {
+                "projectPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj"
               }
             }
           }
@@ -213,18 +213,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Web\\Rentaunsedan.Web.csproj": {
+    "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Web\\Rentaunsedan.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Web\\Rentaunsedan.Web.csproj",
+        "projectUniqueName": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Web\\Rentaunsedan.Web.csproj",
         "projectName": "Rentaunsedan.Web",
-        "projectPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Web\\Rentaunsedan.Web.csproj",
+        "projectPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Web\\Rentaunsedan.Web.csproj",
         "packagesPath": "C:\\Users\\MarioAntonioDíazMénd\\.nuget\\packages\\",
-        "outputPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Web\\obj\\",
+        "outputPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -238,18 +238,18 @@
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj": {
-                "projectPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj"
+              "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj": {
+                "projectPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Data\\Rentaunsedan.Data.csproj"
               },
-              "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj": {
-                "projectPath": "C:\\Personal\\CodeMore Digital\\Proyectos_NET\\Rentaunsedan\\v8_net8\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj"
+              "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj": {
+                "projectPath": "C:\\CodeMoreDigital\\Proyectos_Net\\RentaUnSedan\\Rentaunsedan\\Rentaunsedan.Services\\Rentaunsedan.Services.csproj"
               }
             }
           }
@@ -318,7 +318,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
