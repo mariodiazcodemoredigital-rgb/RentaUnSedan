@@ -1,0 +1,50 @@
+﻿@using Rentaunsedan.Entities.Entities.CRM
+@using Rentaunsedan.Services.Implementation.CRM
+
+@inherits ComponentBase
+@inject CRMInboxService Inbox
+
+<div class="crm-inbox__sidebar">
+    <div class="sidebar-content">
+        <div class="crm-inbox__sidebar-title">Inbox</div>
+            <div class="crm-inbox__menu">
+                @MenuItem("Todos", InboxFilter.Todos, Counts.todos)
+                @MenuItem("Míos", InboxFilter.Mios, Counts.mios)
+                @MenuItem("Sin asignar", InboxFilter.SinAsignar, Counts.sinAsignar)
+                @MenuItem("Equipo", InboxFilter.Equipo, Counts.equipo)
+            </div>
+    </div>
+    @* <div class="crm-inbox__sidebar-footer">
+        <button class="crm-inbox__btn crm-inbox__btn--primary" @onclick="() => NewConversation.InvokeAsync()">Nuevo chat</button>
+    </div> *@
+</div>
+
+@code {
+    [Parameter] public InboxFilter Selected { get; set; }
+    [Parameter] public EventCallback<InboxFilter> OnSelect { get; set; }
+    [Parameter] public EventCallback NewConversation { get; set; }
+
+    private (int todos, int mios, int sinAsignar, int equipo) Counts;
+
+  
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Counts = await Inbox.GetCountsAsync();
+    }
+
+    RenderFragment MenuItem(string title, InboxFilter filter, int count) => builder =>
+    {
+        var seq = 0;
+        var cls = $"menu-item {(Selected == filter ? "active" : "")}";
+        builder.OpenElement(seq++, "div");
+        builder.AddAttribute(seq++, "class", cls);
+        builder.AddAttribute(seq++, "onclick", EventCallback.Factory.Create(this, () => OnSelect.InvokeAsync(filter)));
+        builder.AddContent(seq++, title);
+        builder.OpenElement(seq++, "span");
+        builder.AddAttribute(seq++, "class", "count");
+        builder.AddContent(seq++, count);
+        builder.CloseElement();
+        builder.CloseElement();
+    };
+}

@@ -1,0 +1,261 @@
+﻿@page "/crmventas"
+@using Rentaunsedan.Entities.Entities.CRM
+@using Rentaunsedan.Services.Implementation.CRM
+@inject CRMInboxService Inbox
+
+@rendermode InteractiveServer
+
+
+
+
+<div class="@ContainerClass">
+    <!-- Columna 1: (oculta en mobile) -->    
+    <div class="crm-inbox__panel crm-inbox__panel--visible crm-inbox__panel--col1 crm-inbox__sidebar">   
+        <InboxSidebar Selected="@Selected" OnSelect="ChangeFilter" NewConversation="NewConversation" />
+    </div>
+
+    <!-- Columna 2: Lista -->    
+    <div class="crm-inbox__panel crm-inbox__panel--headered crm-inbox__panel--visible crm-inbox__panel--col2">
+
+        @if (_loading)
+        {
+            <div class="crm-inbox__loading">Cargando conversaciones…</div>
+        }
+        else
+        {            
+            <ThreadList Threads="@Threads" SelectedId="@SelectedThreadId" Selected="@Selected" OnSelect="SelectThread" OnSearchChanged="SearchChanged" OnFilterChange="ChangeFilter" />
+        }
+    </div>
+
+    <!-- Columna 3: Chat -->    
+    <div class="crm-inbox__panel crm-inbox__panel--visible crm-inbox__panel--col3">
+        @if (_loading)
+        {
+            <div class="crm-inbox__loading">Cargando chat…</div>
+        }
+        else
+        {
+            <ChatView Thread="@SelectedThread" OnSend="SendMessage" OnAssignToMe="AssignToMe" ShowBackButton="true"  OnBack="BackToList" />
+        }
+    </div>
+</div>
+
+
+@code {
+    private InboxFilter Selected = InboxFilter.Todos;
+    private string? SelectedThreadId;
+    private string? SearchText;
+
+    private IReadOnlyList<ChatThread> Threads = Array.Empty<ChatThread>();
+    private ChatThread? SelectedThread;
+    private bool _loading;
+
+    // Mobile: mostrar lista o chat
+    private bool _mobileShowChat = false;
+    private string ContainerClass =>
+      $"crm-inbox {(_mobileShowChat ? "crm-inbox--mobile-chat" : "crm-inbox--mobile-list")}";
+
+    private const string CurrentUser = "you";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        // suscribirse al evento para auto-refresco
+        Inbox.Changed += OnInboxChanged;
+        await LoadThreadsAsync();
+    }
+
+    // debounce para evitar cargas múltiples si entran muchos mensajes
+    CancellationTokenSource? _debounceCts;
+    bool _reloading;
+
+    private async void OnInboxChanged()
+    {
+        // este callback viene desde un hilo del servidor; usa InvokeAsync para el circuito de Blazor
+        await InvokeAsync(async () =>
+        {
+            // Debounce 200ms
+            _debounceCts?.Cancel();
+            _debounceCts = new CancellationTokenSource();
+            var token = _debounceCts.Token;
+
+            try
+            {
+                await Task.Delay(200, token); // si llega otro evento, se cancela este delay
+            }
+            catch (TaskCanceledException) { return; }
+
+            if (_reloading) return;
+            _reloading = true;
+            try
+            {
+                await LoadThreadsAsync();   // ← recarga Threads y SelectedThread
+            }
+            finally { _reloading = false; }
+        });
+    }
+
+    public void Dispose()
+    {
+        Inbox.Changed -= OnInboxChanged; // evita fugas
+    }
+
+    private async Task LoadThreadsAsync()
+    {
+        _loading = true; StateHasChanged();
+        try
+        {
+            Threads = await Inbox.GetThreadsAsync(Selected, SearchText);
+
+            if (SelectedThreadId is null || !Threads.Any(t => t.Id == SelectedThreadId))
+                SelectedThreadId = Threads.FirstOrDefault()?.Id;
+
+            SelectedThread = SelectedThreadId is not null
+                ? await Inbox.GetThreadAsync(SelectedThreadId)
+                : null;
+
+            // Fallback: si por alguna razón viene null, arma uno con el preview
+            if (SelectedThread is null && SelectedThreadId is not null)
+            {
+                var lite = Threads.FirstOrDefault(t => t.Id == SelectedThreadId);
+                if (lite is not null)
+                {
+                    SelectedThread = new ChatThread
+                    {
+                        Id = lite.Id,
+                        CustomerName = lite.CustomerName,
+                        CustomerPhone = lite.CustomerPhone,
+                        CompanyId = lite.CompanyId,
+                        AssignedTo = lite.AssignedTo,
+                        Channel = "WhatsApp",
+                        LastUpdated = lite.LastUpdated,
+                        UnreadCount = lite.UnreadCount,
+                        Tags = lite.Tags,
+                        Messages = new List<ChatMessage>(
+                            lite.Messages ?? Enumerable.Empty<ChatMessage>())
+                    };
+                }
+            }
+        }
+        finally
+        {
+            _loading = false; StateHasChanged();
+        }
+    }
+
+    private async Task ChangeFilter(InboxFilter f)
+    {
+        Selected = f;
+        SelectedThreadId = null;
+        _mobileShowChat = false; // en mobile, al cambiar filtro, vuelve a lista        
+        await LoadThreadsAsync();
+    }
+
+    private async Task SelectThread(string id)
+    {
+        _loading = true; 
+        StateHasChanged();
+
+        try
+        {
+            SelectedThreadId = id;
+            SelectedThread = await Inbox.GetThreadAsync(id);
+
+            if (SelectedThread is null)
+            {
+                // Fallback con el item de la lista para no dejar la UI en blanco
+                var lite = Threads.FirstOrDefault(t => t.Id == id);
+                if (lite is not null)
+                {
+                    SelectedThread = new ChatThread
+                    {
+                        Id = lite.Id,
+                        CustomerName = lite.CustomerName,
+                        CustomerPhone = lite.CustomerPhone,
+                        CompanyId = lite.CompanyId,
+                        AssignedTo = lite.AssignedTo,
+                        Channel = "WhatsApp",
+                        LastUpdated = lite.LastUpdated,
+                        UnreadCount = lite.UnreadCount,
+                        Tags = lite.Tags,
+                        Messages = new List<ChatMessage>(
+                            lite.Messages ?? Enumerable.Empty<ChatMessage>())
+                    };
+                }
+            }
+
+            _mobileShowChat = true;
+        }
+        finally
+        {
+            await Inbox.MarkReadAsync(id);
+            _loading = false; 
+            StateHasChanged();
+        }
+    }
+
+    // private async Task SelectThread(string id)
+    // {
+    //     SelectedThreadId = id;
+
+    //     // Carga DETALLE del hilo (historial completo)
+    //     SelectedThread = await Inbox.GetThreadAsync(id);
+    //     // SelectedThread = Threads.FirstOrDefault(t => t.Id == id);
+
+    //     _mobileShowChat = true;  // en mobile -> abrir chat
+    //     StateHasChanged();
+
+    //     //marcar como leído
+    //     await Inbox.MarkReadAsync(id);
+
+    //     // return Task.CompletedTask;
+    // }
+
+    private async Task SearchChanged(string text)
+    {
+        SearchText = string.IsNullOrWhiteSpace(text) ? null : text;
+        SelectedThreadId = null;
+        _mobileShowChat = false;  // en mobile -> abrir chat
+        await LoadThreadsAsync();
+    }
+
+    private Task NewConversation() => Task.CompletedTask;
+
+    private async Task AssignToMe()
+    {
+        if (SelectedThread is null) return;
+        await Inbox.AssignAsync(SelectedThread.Id, CurrentUser);
+
+        //await LoadThreadsAsync();
+        // Refresca lista y detalle
+        Threads = await Inbox.GetThreadsAsync(Selected, SearchText);
+        SelectedThread = await Inbox.GetThreadAsync(SelectedThread.Id);
+        StateHasChanged();
+    }
+
+    private async Task SendMessage(string text)
+    {
+        // if (SelectedThread is null || string.IsNullOrWhiteSpace(text)) return;
+        // await Inbox.AppendMessageAsync(SelectedThread.Id, SenderKind.Agent, CurrentUser, text.Trim());
+        // await LoadThreadsAsync();
+
+        if (SelectedThread is null || string.IsNullOrWhiteSpace(text)) return;
+
+        // Guarda en BD
+        await Inbox.AppendMessageAsync(SelectedThread.Id, SenderKind.Agent, CurrentUser, text.Trim());
+
+        // 🔁 Vuelve a leer el HILO COMPLETO para mostrar TODO el historial
+        SelectedThread = await Inbox.GetThreadAsync(SelectedThread.Id);
+
+        // (opcional) refresca la lista para actualizar hora/preview/unread
+        Threads = await Inbox.GetThreadsAsync(Selected, SearchText);
+
+        StateHasChanged();
+    }
+
+    private Task BackToList()
+    {
+        _mobileShowChat = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

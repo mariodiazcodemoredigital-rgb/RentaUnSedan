@@ -1,0 +1,11 @@
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\bin\Debug\net8.0\Rentaunsedan.Entities.deps.json
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\bin\Debug\net8.0\Rentaunsedan.Entities.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\bin\Debug\net8.0\Rentaunsedan.Entities.pdb
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\obj\Debug\net8.0\Rentaunsedan.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\obj\Debug\net8.0\Rentaunsedan.Entities.AssemblyInfoInputs.cache
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\obj\Debug\net8.0\Rentaunsedan.Entities.AssemblyInfo.cs
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\obj\Debug\net8.0\Rentaunsedan.Entities.csproj.CoreCompileInputs.cache
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\obj\Debug\net8.0\Rentaunsedan.Entities.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\obj\Debug\net8.0\refint\Rentaunsedan.Entities.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\obj\Debug\net8.0\Rentaunsedan.Entities.pdb
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Entities\obj\Debug\net8.0\ref\Rentaunsedan.Entities.dll

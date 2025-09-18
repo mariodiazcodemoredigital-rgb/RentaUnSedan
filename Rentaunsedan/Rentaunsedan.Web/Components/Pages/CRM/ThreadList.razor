@@ -1,0 +1,157 @@
+﻿@using Rentaunsedan.Entities.Entities.CRM
+@using Rentaunsedan.Services.Implementation.CRM
+@inject CRMxUsuariosService Usuarios
+
+<div class="crm-inbox__threadlist">
+
+    <!-- Tabs solo en mobile -->
+    <div class="crm-inbox__tabs">
+        @foreach (var t in Tabs)
+        {
+            var active = t.f == Selected ? " active" : "";
+            <button class="crm-inbox__tab@active" @onclick="() => OnFilterChange.InvokeAsync(t.f)">
+                @t.label
+            </button>
+        }
+    </div>
+
+    <div class="crm-inbox__toolbar">
+        <input class="search" placeholder="Buscar por nombre, teléfono o etiqueta…" @bind="Search" @bind:event="oninput" />
+        <div class="tag">Más recientes</div>
+    </div>
+
+    <div class="crm-inbox__items">
+        @if (Threads?.Any() != true)
+        {
+            <div style="padding:18px; color:var(--muted)">No hay conversaciones.</div>
+        }
+        else
+        {
+            @foreach (var t in Threads!)
+            {
+                var active = t.Id == SelectedId ? "active" : "";
+                var isUnread = t.UnreadCount > 0;
+                var rowCls = $"crm-inbox__thread {active} {(isUnread ? "unread" : "")}";
+                var assignee = ResolveAssigneeName(t.AssignedTo);  // ← nombre o null
+
+                <div class="@rowCls" @onclick="() => SelectItem(t.Id)">
+                    <div class="crm-inbox__avatar">@t.CustomerName.Substring(0, 1).ToUpper()</div>
+
+                    <div>
+                        <div class="crm-inbox__hstack">
+                            <div class="crm-inbox__name">@t.CustomerName</div>
+                        </div>
+
+                        @* NUEVO: Asignado justo debajo del nombre *@
+                        @if (!string.IsNullOrWhiteSpace(assignee))
+                        {
+                            <div class="crm-inbox__assignee-badge" title="Asignado a @assignee">
+                                <i class="fas fa-user-check"></i>
+                                <span>@assignee</span>
+                            </div>
+                        }
+
+                      @*   <div class="crm-inbox__preview">@t.Messages.LastOrDefault()?.Text</div> *@
+                      
+                        <div class="crm-inbox__preview">@Truncate(t.Messages.LastOrDefault()?.Text, PreviewMaxChars)</div>
+                    </div>
+
+                    <!-- Derecha: hora (arriba) + contador (abajo) -->
+                    <div class="crm-inbox__rmeta">
+                        <small class="crm-inbox__meta">
+                            @t.LastUpdated.ToLocalTime().ToShortTimeString()
+                        </small>
+
+                        @if (isUnread)
+                        {
+                            var unreadText = t.UnreadCount > 99 ? "99+" : t.UnreadCount.ToString();
+                            <span class="unread-badge" title="@($"{t.UnreadCount} sin leer")">@unreadText</span>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    
+    [Parameter] public string? SelectedId { get; set; }
+    [Parameter] public EventCallback<string> OnSelect { get; set; }
+    [Parameter] public EventCallback<string> OnSearchChanged { get; set; }
+    [Parameter] public IReadOnlyList<ChatThread> Threads { get; set; } = Array.Empty<ChatThread>();    
+    [Parameter] public InboxFilter Selected { get; set; }             // NUEVO
+    [Parameter] public EventCallback<InboxFilter> OnFilterChange { get; set; } // NUEVO
+
+    private string? Search { get; set; }
+    private string search = "";
+
+    // cache: UsuarioId -> UserName
+    private readonly Dictionary<int, string> _userNameById = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // noop
+        // Recolecta los UsuarioId que aparecen en AssignedTo y faltan en cache
+        var needed = Threads?
+            .Select(t => t.AssignedTo)
+            .Where(s => !string.IsNullOrWhiteSpace(s) && int.TryParse(s, out _))
+            .Select(s => int.Parse(s!))
+            .Distinct()
+            .Where(id => !_userNameById.ContainsKey(id))
+            .ToList() ?? new List<int>();
+
+        if (needed.Count > 0)
+        {
+            // Carga usuarios y llena cache solo para los necesarios
+            var all = await Usuarios.GetAllAsync();
+            foreach (var u in all.Where(u => needed.Contains(u.UsuarioId)))
+                _userNameById[u.UsuarioId] = u.UserName;
+
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnSearchChangedHandler(ChangeEventArgs e)
+    {
+        Search = e.Value?.ToString();
+        await OnSearchChanged.InvokeAsync(Search ?? "");
+    }
+
+    private async Task SelectItem(string id)
+    {
+        // Punto único de selección (más fácil de depurar si algo falla)
+        await OnSelect.InvokeAsync(id);
+    }
+
+    private static (InboxFilter f, string label)[] Tabs = new[] 
+    {
+        (InboxFilter.Todos, "Todos"),
+        (InboxFilter.Mios, "Míos"),
+        (InboxFilter.SinAsignar, "Sin asignar"),
+        (InboxFilter.Equipo, "Equipo"),
+    };
+
+    private Task OnInput(ChangeEventArgs e)
+    {
+        search = e?.Value?.ToString() ?? "";
+        return OnSearchChanged.InvokeAsync(search);
+    }
+
+    private string? ResolveAssigneeName(string? assigned)
+    {
+        if (string.IsNullOrWhiteSpace(assigned)) return null;
+        if (int.TryParse(assigned, out var uid) && _userNameById.TryGetValue(uid, out var name))
+            return name;
+        return null;
+    }
+
+    const int PreviewMaxChars = 90; // ajusta a tu gusto
+
+    static string Truncate(string? s, int max)
+    {
+        if (string.IsNullOrWhiteSpace(s)) return "";
+        var text = s.Trim();
+        return text.Length <= max ? text : $"{text[..max]}…";
+    }
+}

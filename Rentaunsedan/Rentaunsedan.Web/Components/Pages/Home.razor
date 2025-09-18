@@ -1,0 +1,40 @@
+﻿@page "/"
+@inherits Rentaunsedan.Web.Components.Shared.JsPageBase
+
+@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS
+
+@attribute [Authorize]
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+
+
+@if (usuario != null)
+{
+    <p>Bienvenido, @usuario.Identity.Name!</p>   
+}
+else
+{
+    <p>Cargando perfil...</p>
+}
+
+@code {
+    private ClaimsPrincipal usuario;
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        usuario = authState.User;
+
+    }
+
+  
+}

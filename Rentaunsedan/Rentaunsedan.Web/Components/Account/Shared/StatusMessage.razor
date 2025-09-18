@@ -1,0 +1,63 @@
+﻿@if (!string.IsNullOrEmpty(DisplayMessage))
+{    
+    var lines = DisplayMessage.Split("<br>")
+                      .Select(line => line.Replace("Error:", "").Trim())
+                      .Where(line => !string.IsNullOrWhiteSpace(line));
+
+    var statusMessageClass = @DisplayMessage.StartsWith("Error") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass custom-status-message" role="alert">
+        <ul>
+            @foreach (var line in lines)
+            {
+                <li>@((MarkupString)line)</li>
+            }
+        </ul>
+        @* @DisplayMessage *@
+    </div>
+}
+
+<style>
+/*//cuadro login*/
+.custom-status-message {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-danger.custom-status-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    color: #842029;
+}
+
+.alert-success.custom-status-message {
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+    color: #0f5132;
+}
+
+</style>
+
+@code {
+    private string? messageFromCookie;
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private string? DisplayMessage => Message ?? messageFromCookie;
+
+    protected override void OnInitialized()
+    {
+        messageFromCookie = HttpContext.Request.Cookies[IdentityRedirectManager.StatusCookieName];
+
+        if (messageFromCookie is not null)
+        {
+            HttpContext.Response.Cookies.Delete(IdentityRedirectManager.StatusCookieName);
+        }
+    }
+}

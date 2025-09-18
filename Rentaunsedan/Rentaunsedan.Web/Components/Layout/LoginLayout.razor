@@ -1,0 +1,121 @@
+﻿@inherits LayoutComponentBase
+
+<div class="login-layout">
+    <div class="login-box">
+        <!-- Sección izquierda (formulario) -->
+        <div class="login-form-section">
+            <h2>Bienvenido</h2>
+            <main>
+                @Body
+            </main>
+            @* <p class="register-text">
+                Don't have an account? <a href="/register">Register</a>
+            </p> *@
+        </div>
+
+        <!-- Sección derecha (imagen) -->
+        <div class="login-image-section">
+            <img src="images/login-illustration.png" alt="Login Illustration" />
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="login-footer">
+        © 2025 RentaUnSedan | Todos los derechos reservados
+    </footer>
+</div>
+
+
+<style>
+    .login-layout {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #007bff; /* Fondo azul como en la imagen */
+        font-family: Arial, sans-serif;
+    }
+
+    .login-box {
+        display: flex;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        max-width: 850px;
+        width: 90%;
+    }
+
+    /* Sección izquierda (formulario) */
+    .login-form-section {
+        flex: 1;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+        .login-form-section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .login-form-section main {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .login-form-section input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        .login-form-section button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #007bff;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .login-form-section button:hover {
+                background: #0056b3;
+            }
+
+    .register-text {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Sección derecha (imagen) */
+    .login-image-section {
+        flex: 1;
+        background: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+        .login-image-section img {
+            max-width: 80%;
+        }
+
+    /* Footer */
+    .login-footer {
+        margin-top: 1rem;
+        color: white;
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+</style>

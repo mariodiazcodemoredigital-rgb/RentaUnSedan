@@ -1,0 +1,325 @@
+﻿@using Rentaunsedan.Entities.Entities.CRM
+@using Rentaunsedan.Services.Implementation.CRM
+@inject CRMxEquiposService Equipos
+@inject CRMxUsuariosService Usuarios
+@inject CRMxEquiposUsuariosService Rel
+@inject CRMInboxService Inbox
+
+@if (Thread is null)
+{
+    <div class="crm-inbox__chat">
+        <div class="crm-inbox__chat-body"><div class="crm-inbox__meta">Selecciona una conversación</div></div>
+        <div class="crm-inbox__chat-input">
+            <textarea class="crm-inbox__textarea" disabled placeholder="Escribe un mensaje..."></textarea>
+            <button class="crm-inbox__btn" disabled>Enviar</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="crm-inbox__chat">
+        <div class="crm-inbox__chat-header">
+            @if (ShowBackButton)
+            {
+                <button class="crm-inbox__back" @onclick="OnBack" title="Volver">←</button>
+            }
+
+            <div class="crm-inbox__avatar">@Thread.CustomerName.Substring(0, 1).ToUpper()</div>
+            <div>
+                <div class="crm-inbox__name">@Thread.CustomerName</div>
+                <div class="crm-inbox__meta">@Thread.Channel · @Thread.CustomerPhone</div>
+            </div>
+            <div class="crm-inbox__spacer"></div>
+
+            <div class="hstack">
+                <span class="tag">@Thread.CompanyId</span>
+                @if (!string.IsNullOrWhiteSpace(Thread.AssignedTo))
+                {
+                    <span class="tag">Asignado: @ResolveAssigneeName(Thread.AssignedTo)</span>
+                    <button class="btn" style="margin-left:.5rem" @onclick="OpenAssignModal">Reasignar</button>
+                }
+                else
+                {
+                    <button class="btn" @onclick="OpenAssignModal">Asignar</button>
+                }
+            </div>
+        </div>
+
+        <div class="crm-inbox__chat-body"
+             @onclick="HandleInteract"
+            >
+
+            @foreach (var m in Thread.Messages.OrderBy(m => m.Timestamp))
+            {
+                var rightClass = m.Kind == SenderKind.Agent ? "crm-inbox__msg-row--right" : "";
+                <div class="crm-inbox__msg-row @rightClass">
+                    @if (m.Kind != SenderKind.Agent)
+                    {
+                        <div class="crm-inbox__avatar" style="width:28px;height:28px;">
+                            @Thread.CustomerName.Substring(0, 1).ToUpper()
+                        </div>
+                    }
+                    <div class="msg">
+                        @* <-- NUEVO *@
+                        <div class="crm-inbox__bubble">@m.Text</div>
+                        <div class="crm-inbox__meta">@m.Timestamp.ToLocalTime().ToString("dd MMM HH:mm") · @m.Sender</div>
+                    </div>
+                  @*   <div>
+                        <div class="crm-inbox__bubble">@m.Text</div>
+                        <div class="crm-inbox__meta">@m.Timestamp.ToLocalTime().ToString("dd MMM HH:mm") · @m.Sender</div>
+                    </div> *@
+                </div>
+            }
+
+        </div>
+
+        <div class="crm-inbox__chat-input">
+            <textarea class="crm-inbox__textarea"
+                      placeholder="Escribe un mensaje…"
+                      @bind="Draft"
+                      @bind:event="oninput"
+                      >
+            </textarea>
+            <button class="crm-inbox__btn crm-inbox__btn--primary" @onclick="Send" disabled="@string.IsNullOrWhiteSpace(Draft)">Enviar</button>
+        </div>
+    </div>
+}
+@if (showAssignModal)
+{
+    <div class="overlay" role="dialog" aria-modal="true" aria-labelledby="assignTitle">
+        <div class="modal">
+            <div class="modal__header">
+                <div class="modal__title" id="assignTitle">Asignar conversación</div>
+                <div class="modal__spacer"></div>
+                <button class="btn btn-ghost btn-icon" @onclick="CloseAssignModal" aria-label="Cerrar">✕</button>
+            </div>
+
+            <div class="modal__body">
+                @if (cargando)
+                {
+                    <div class="muted">Cargando equipos y miembros…</div>
+                }
+                else if (equiposVm.Count == 0)
+                {
+                    <div class="empty-state">
+                        <div class="empty-title">Sin equipos</div>
+                        <div class="empty-desc">No hay equipos activos para asignar.</div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var g in equiposVm)
+                    {
+                        <div class="modal__group">
+                            <div class="modal__group-title">@g.Nombre</div>
+
+                            @if (g.Miembros.Count == 0)
+                            {
+                                <div class="muted">Sin miembros activos.</div>
+                            }
+                            else
+                            {
+                                @foreach (var m in g.Miembros)
+                                {
+                                    var checkedAttr = selectedUsuarioId == m.UsuarioId ? "checked" : null;
+                                    <label class="radio-row">
+                                        <input type="radio" name="agent" value="@m.UsuarioId"
+                                               checked="@checkedAttr"
+                                               @onchange="() => SelectUsuario(m.UsuarioId)" />
+                                        <span class="radio-text">
+                                            <strong>@m.UserName</strong>
+                                            <span class="muted">(@m.Telefono)</span>
+                                        </span>
+                                    </label>
+                                }
+                            }
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="modal__footer">
+                <button class="btn" @onclick="CloseAssignModal">Cancelar</button>
+                <button class="btn btn-primary" @onclick="ConfirmAssign" disabled="@(!selectedUsuarioId.HasValue)">Asignar</button>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter] public ChatThread? Thread { get; set; }
+    [Parameter] public EventCallback<string> OnSend { get; set; }
+    [Parameter] public EventCallback OnAssignToMe { get; set; }
+    [Parameter] public bool ShowBackButton { get; set; } = false;  // NUEVO
+    [Parameter] public EventCallback OnBack { get; set; }          // NUEVO
+
+    private string Draft { get; set; } = "";
+
+    // --- Mark as read helpers ---
+    private bool _markingRead;
+    private string? _lastThreadId;
+
+    // --- Modal Asignación ---
+    private bool showAssignModal;
+    private bool cargando;
+    private int? selectedUsuarioId;
+
+    private readonly List<EquipoVM> equiposVm = new();
+    private readonly Dictionary<int, CRMUsuario> userCache = new();
+
+    // ViewModels internos
+    private class EquipoVM
+    {
+        public int EquipoId { get; set; }
+        public string Nombre { get; set; } = "";
+        public List<MiembroVM> Miembros { get; set; } = new();
+    }
+    private class MiembroVM
+    {
+        public int UsuarioId { get; set; }
+        public string UserName { get; set; } = "";
+        public string Telefono { get; set; } = "";
+        public bool Activo { get; set; }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // Si cambió el hilo, resetea el flag
+        if (Thread?.Id != _lastThreadId)
+        {
+            _lastThreadId = Thread?.Id;
+            _markingRead = false;
+        }
+
+        // intenta resolver nombre si el AssignedTo es un Id numérico
+        if (Thread != null && !string.IsNullOrWhiteSpace(Thread.AssignedTo))
+        {
+            if (int.TryParse(Thread.AssignedTo, out var uid) && !userCache.ContainsKey(uid))
+            {
+                var all = await Usuarios.GetAllAsync();
+                foreach (var u in all) userCache[u.UsuarioId] = u;
+                StateHasChanged();
+            }
+        }
+    }
+
+    private async Task HandleInteract()
+    {
+        await MarkReadIfNeededAsync();
+    }
+
+    private async Task MarkReadIfNeededAsync()
+    {
+        if (Thread is null) return;
+        if (_markingRead) return;
+        if (Thread.UnreadCount <= 0) return;
+
+        _markingRead = true;
+        try
+        {
+            await Inbox.MarkReadAsync(Thread.Id);
+            // reflejar inmediatamente en UI
+            Thread.UnreadCount = 0;
+            StateHasChanged();
+        }
+        finally
+        {
+            _markingRead = false;
+        }
+    }
+
+     private string ResolveAssigneeName(string? assigned)
+    {
+        if (string.IsNullOrWhiteSpace(assigned)) return "";
+        if (int.TryParse(assigned, out var uid) && userCache.TryGetValue(uid, out var u))
+            return u.UserName;
+        return assigned; // fallback por si todavía no resuelve
+    }
+
+    private async Task Send()
+    {
+        if (string.IsNullOrWhiteSpace(Draft) || Thread is null) return;
+
+        // Antes o después de enviar, marcamos como leído
+        await MarkReadIfNeededAsync();
+
+        await OnSend.InvokeAsync(Draft);
+        Draft = "";
+    }
+
+    // ---------- Asignación ----------
+    private async Task OpenAssignModal()
+    {
+        if (Thread is null) return;
+        showAssignModal = true;
+        cargando = true;
+        equiposVm.Clear();
+
+        // Carga equipos activos
+        var equipos = await Equipos.GetAllAsync(); // si tienes filtro por nombre pasa null; filtra Activo en memoria
+        var equiposActivos = equipos.Where(e => e.Activo).OrderBy(e => e.Nombre).ToList();
+
+        // Cachea usuarios para resolver nombres
+        var allUsers = await Usuarios.GetAllAsync();
+        userCache.Clear();
+        foreach (var u in allUsers) userCache[u.UsuarioId] = u;
+
+        // Para cada equipo, carga miembros y filtra activos
+        foreach (var eq in equiposActivos)
+        {
+            var miembros = await Rel.GetByEquipoAsync(eq.EquipoId);
+            var activos = miembros.Where(m => m.Activo).ToList();
+
+            var vm = new EquipoVM
+            {
+                EquipoId = eq.EquipoId,
+                Nombre = eq.Nombre,
+                Miembros = activos
+                    .Select(m => new MiembroVM
+                    {
+                        UsuarioId = m.UsuarioId,
+                        UserName = userCache.TryGetValue(m.UsuarioId, out var u) ? u.UserName : $"UID {m.UsuarioId}",
+                        Telefono = userCache.TryGetValue(m.UsuarioId, out var u2) ? (u2.Telefono ?? "") : "",
+                        Activo = true
+                    })
+                    .OrderBy(x => x.UserName)
+                    .ToList()
+            };
+            equiposVm.Add(vm);
+        }
+
+        // Preselecciona si ya hay AssignedTo y es numérico
+        selectedUsuarioId = null;
+        if (int.TryParse(Thread.AssignedTo, out var currentId))
+            selectedUsuarioId = currentId;
+
+        cargando = false;
+        StateHasChanged();
+    }
+
+    private void CloseAssignModal()
+    {
+        showAssignModal = false;
+        selectedUsuarioId = null;
+    }
+
+    private void SelectUsuario(int usuarioId) => selectedUsuarioId = usuarioId;
+
+    private async Task ConfirmAssign()
+    {
+        if (Thread is null || !selectedUsuarioId.HasValue) return;
+
+        // Guardamos el UsuarioId como string en AssignedTo
+        await Inbox.AssignAsync(Thread.Id, selectedUsuarioId.Value.ToString());
+
+        // Refleja en UI: muestra UserName (resolverá por cache)
+        Thread.AssignedTo = selectedUsuarioId.Value.ToString();
+
+        CloseAssignModal();
+        StateHasChanged();
+    }
+
+    private Task AssignToMe() => OnAssignToMe.InvokeAsync();
+}

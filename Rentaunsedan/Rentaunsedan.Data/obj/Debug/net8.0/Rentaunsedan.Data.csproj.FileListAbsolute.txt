@@ -1,0 +1,15 @@
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\bin\Debug\net8.0\Rentaunsedan.Data.deps.json
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\bin\Debug\net8.0\Rentaunsedan.Data.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\bin\Debug\net8.0\Rentaunsedan.Data.pdb
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\Rentaunsedan.Data.csproj.AssemblyReference.cache
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\Rentaunsedan.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\Rentaunsedan.Data.AssemblyInfoInputs.cache
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\Rentaunsedan.Data.AssemblyInfo.cs
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\Rentaunsedan.Data.csproj.CoreCompileInputs.cache
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\Rentaunsedan.Data.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\refint\Rentaunsedan.Data.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\Rentaunsedan.Data.pdb
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\ref\Rentaunsedan.Data.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\bin\Debug\net8.0\Rentaunsedan.Entities.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\bin\Debug\net8.0\Rentaunsedan.Entities.pdb
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Data\obj\Debug\net8.0\Rentauns.8D3ECF1A.Up2Date

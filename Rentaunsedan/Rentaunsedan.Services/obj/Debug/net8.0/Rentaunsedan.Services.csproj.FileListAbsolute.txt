@@ -1,0 +1,17 @@
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\bin\Debug\net8.0\Rentaunsedan.Services.deps.json
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\bin\Debug\net8.0\Rentaunsedan.Services.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\bin\Debug\net8.0\Rentaunsedan.Services.pdb
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\bin\Debug\net8.0\Rentaunsedan.Data.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\bin\Debug\net8.0\Rentaunsedan.Data.pdb
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\Rentaunsedan.Services.csproj.AssemblyReference.cache
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\Rentaunsedan.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\Rentaunsedan.Services.AssemblyInfoInputs.cache
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\Rentaunsedan.Services.AssemblyInfo.cs
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\Rentaunsedan.Services.csproj.CoreCompileInputs.cache
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\Rentauns.A44A118B.Up2Date
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\Rentaunsedan.Services.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\refint\Rentaunsedan.Services.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\Rentaunsedan.Services.pdb
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\obj\Debug\net8.0\ref\Rentaunsedan.Services.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\bin\Debug\net8.0\Rentaunsedan.Entities.dll
+C:\Personal\CodeMore Digital\Proyectos_NET\Rentaunsedan\v8_net8\Rentaunsedan\Rentaunsedan.Services\bin\Debug\net8.0\Rentaunsedan.Entities.pdb
